@@ -1,11 +1,12 @@
 TodoistData = new Meteor.Collection("TodoistData");
 
-var baseUrl = 'https://todoist.com/API/';
+var baseUrl = 'https://todoist.com/API/',
+    syncUrl = 'https://todoist.com/TodoistSync/v5.3/';
 
 Todoist = function(config) {
     var self = this;
 
-    if (!config || !config.email || !config.password) {
+    if (!config.email || !config.password) {
         throw 'Must instantiate Todoist with an email and password';
     }
 
@@ -57,9 +58,16 @@ Todoist.prototype.request = function (endpoint, params) {
     return this._get(endpoint, params).data;
 };
 
-Todoist.prototype._get = function(endpoint, params) {
-    var path = baseUrl + endpoint,
+Todoist.prototype.getSync = function (seq_no) {
+    seq_no = seq_no || 0;
+    return this._get('get', {seq_no: seq_no}, true);
+};
+
+Todoist.prototype._get = function(endpoint, params, isSync) {
+    var path,
         response;
+
+    path = (isSync) ? syncUrl : baseUrl + endpoint;
 
     try {
         response = HTTP.get(path, {
