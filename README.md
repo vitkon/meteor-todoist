@@ -14,8 +14,8 @@ var client = new Todoist({
         password: 'Your_Todoist_Password'
     });
 
-// assuming you have a project with id = 1
-var project = client.request('getProject', {project_id: 1});
+// assuming you have a project with id = 124469099
+var project = client.request('getProject', {project_id: 124469099});
 console.log(project);
 ```
 
