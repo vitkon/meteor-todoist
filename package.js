@@ -1,7 +1,7 @@
 Package.describe({
   name: 'vitkon:todoist',
   summary: 'Todoist API package for meteor server',
-  version: '0.1.0',
+  version: '0.1.2',
   git: 'https://github.com/vitkon/meteor-todoist.git'
 });
 

@@ -9,8 +9,6 @@ Todoist = function(config) {
         throw 'Must instantiate Todoist with an email and password';
     }
 
-    config.baseUrl = config.baseUrl + 'https://todoist.com/API/';
-
     this.user = TodoistData.findOne({
         email: config.email
     }) || {};
@@ -60,7 +58,7 @@ Todoist.prototype.request = function (endpoint, params) {
 };
 
 Todoist.prototype._get = function(endpoint, params) {
-    var path = config.baseUrl + endpoint,
+    var path = baseUrl + endpoint,
         response;
 
     try {
