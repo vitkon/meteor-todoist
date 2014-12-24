@@ -58,16 +58,18 @@ Todoist.prototype.request = function (endpoint, params) {
     return this._get(endpoint, params).data;
 };
 
-Todoist.prototype.getSync = function (seq_no) {
-    seq_no = seq_no || 0;
-    return this._get('get', {seq_no: seq_no}, true);
+Todoist.prototype.getSync = function (params) {
+    params.seq_no = params.seq_no || 0;
+    return this._get('get', params, true);
 };
 
 Todoist.prototype._get = function(endpoint, params, isSync) {
     var path,
         response;
 
-    path = (isSync) ? syncUrl : baseUrl + endpoint;
+    path = (isSync) ? syncUrl : baseUrl;
+    path += endpoint;
+    console.log(path);
 
     try {
         response = HTTP.get(path, {
